@@ -1,8 +1,8 @@
 from typing import Optional
 import datetime
 
-from sqlalchemy import ForeignKeyConstraint, Index, Integer, String, TIMESTAMP, Text, text
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy import ForeignKeyConstraint, Index, Integer, String, TIMESTAMP, Text, text, and_
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, foreign
 
 class Base(DeclarativeBase):
     pass
@@ -17,9 +17,9 @@ class Users(Base):
     email: Mapped[Optional[str]] = mapped_column(String(255, 'utf8mb4_unicode_ci'))
     create_time: Mapped[Optional[datetime.datetime]] = mapped_column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
 
-    posts: Mapped[list['Posts']] = relationship('Posts', back_populates='user')
-    comments: Mapped[list['Comments']] = relationship('Comments', back_populates='user')
-    reactions: Mapped[list['Reactions']] = relationship('Reactions', back_populates='user')
+    posts: Mapped[list['Posts']] = relationship('Posts', back_populates='user', cascade='all, delete-orphan')
+    comments: Mapped[list['Comments']] = relationship('Comments', back_populates='user', cascade='all, delete-orphan')
+    reactions: Mapped[list['Reactions']] = relationship('Reactions', back_populates='user', cascade='all, delete-orphan')
 
 
 class Posts(Base):
@@ -36,9 +36,31 @@ class Posts(Base):
     updated_at: Mapped[Optional[datetime.datetime]] = mapped_column(TIMESTAMP)
 
     user: Mapped['Users'] = relationship('Users', back_populates='posts')
-    comments: Mapped[list['Comments']] = relationship('Comments', back_populates='post')
-    reactions: Mapped[list['Reactions']] = relationship('Reactions', back_populates='post')
+ # For cascade deletion
+    comments_all: Mapped[list['Comments']] = relationship(
+        'Comments',
+        back_populates='post',
+        cascade='all, delete-orphan',
+        order_by='Comments.created_at.desc()'
+    )
+    reactions_all: Mapped[list['Reactions']] = relationship(
+        'Reactions',
+        back_populates='post',
+        cascade='all, delete-orphan'
+    )
 
+    # For filtered query
+    comments: Mapped[list['Comments']] = relationship(
+        'Comments',
+        primaryjoin='and_(Comments.post_id == Posts.id, Comments.parent_comment_id == None)',
+        viewonly=True,
+        order_by='Comments.created_at.desc()'
+    )
+    reactions: Mapped[list['Reactions']] = relationship(
+        'Reactions',
+        primaryjoin='and_(Reactions.post_id == Posts.id, Reactions.comment_id == None)',
+        viewonly=True
+    )
 
 class Comments(Base):
     __tablename__ = 'comments'
@@ -62,8 +84,8 @@ class Comments(Base):
     user: Mapped['Users'] = relationship('Users', back_populates='comments')
     reactions: Mapped[list['Reactions']] = relationship('Reactions', back_populates='comment')
 
-    replies: Mapped[list['Comments']] = relationship('Comments', back_populates='parent', foreign_keys=[parent_comment_id])
-    parent:  Mapped[Optional['Comments']] = relationship('Comments', back_populates='replies', remote_side='Comments.id', foreign_keys=[parent_comment_id])
+    replies: Mapped[list['Comments']] = relationship('Comments', back_populates='parent', cascade="all, delete-orphan", foreign_keys=[parent_comment_id])
+    parent:  Mapped[Optional['Comments']] = relationship('Comments', back_populates='replies', remote_side=[id], foreign_keys=[parent_comment_id])
 
 
 class Reactions(Base):

@@ -1,0 +1,50 @@
+.action-menu {
+position: absolute;
+right: 10px;
+}
+
+.action-menu-trigger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    color: rgb(177, 177, 177);
+    padding: 2px 8px;
+    border-radius: 6px;
+    line-height: 1;
+}
+
+.action-menu-trigger:hover {
+    background: var(--color-background-secondary);
+}
+
+.action-menu-dropdown {
+    position: absolute;
+
+    background: rgb(30, 52, 73);
+    border: 0.5px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 100;
+    min-width: 120px;
+}
+
+.action-menu-dropdown button {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 10px 16px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.action-menu-dropdown button:hover {
+    background: #f0f2f5;
+}
+
+.action-menu-dropdown .delete-btn {
+    color: #e24b4a;
+}

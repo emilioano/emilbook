@@ -4,7 +4,7 @@ from typing import Optional
 from schemas.auth import LoginRequest, TokenResponse, CurrentUser
 from models.models import Users
 from db.db import get_db
-from schemas.user import UserResponse
+from schemas.users import UserResponse
 from core.pw_hash import verify_password
 from core.auth import create_access_token, decode_access_token
 

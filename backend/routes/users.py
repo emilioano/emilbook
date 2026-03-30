@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, HTTPException, status, Depends, Query
 from typing import List, Optional
 
 from sqlalchemy.orm import Session
@@ -7,14 +7,14 @@ from sqlalchemy import or_
 from db.db import get_db
 from datetime import datetime
 from models.models import Users
-from schemas.user import CreateUser, UserResponse, UpdateUser
+from schemas.users import CreateUser, UserResponse, UpdateUser
 from schemas.auth import CurrentUser
 from core.pw_hash import hash_password
 from routes.auth import get_current_user
 
 router = APIRouter(
-    prefix='/user',
-    tags=['user']
+    prefix='/users',
+    tags=['users']
 )
 
 @router.get("/", response_model=List[UserResponse])
@@ -32,8 +32,8 @@ async def get_all_users(db: Session = Depends(get_db)):
 
     return users
 
-@router.get('/{search_phrase}', response_model=List[UserResponse])
-async def get_specific_users(search_phrase: str, db: Session = Depends(get_db)):
+@router.get('/search', response_model=List[UserResponse])
+async def get_specific_users(search_phrase: str = Query(..., min_length=1), db: Session = Depends(get_db)):
     # Fetching username or email that matches search phrase
     pattern = f'%{search_phrase}%'
 
@@ -45,7 +45,7 @@ async def get_specific_users(search_phrase: str, db: Session = Depends(get_db)):
                     Users.username.ilike(pattern),
                     Users.email.ilike(pattern),
                 )
-            )    
+            )
             .all()
         )
     except Exception as err:
@@ -54,9 +54,10 @@ async def get_specific_users(search_phrase: str, db: Session = Depends(get_db)):
 
     if not users:
         print(f'No posts found containing {search_phrase}.')
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail=f"User with search phrase {search_phrase} not found"
-        )
+        #raise HTTPException(
+        #    status_code=status.HTTP_404_NOT_FOUND, detail=f"User with search phrase {search_phrase} not found"
+        return []
+
     else:
         print(f'Fetched users {users}')
         return users
@@ -104,7 +105,7 @@ async def create_user(user: CreateUser, db: Session = Depends(get_db)):
     return new_user
 
 
-@router.delete('/{userid}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/{user_id}', status_code=status.HTTP_204_NO_CONTENT)
 async def delete_user(user_id: int, db: Session = Depends(get_db), current_user: CurrentUser = Depends(get_current_user)):
 
     user_detail = db.query(Users).filter(Users.id == user_id).first()

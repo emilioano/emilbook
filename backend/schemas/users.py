@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator, ConfigDict
 from typing import Optional, ClassVar
 from datetime import datetime
 
@@ -50,14 +50,6 @@ class UpdateUser(UserBase):
 class UserResponse(UserBase):
     id: int = Field(..., description='User id')
     email: Optional[EmailStr] = Field(None, description='Users email')
-    create_time: datetime = Field(..., description='Time when creatd')
+    create_time: datetime = Field(..., description='Time when created')
 
-    class Config:
-        from_attributes = True
-        json_schema = {
-            "example": {
-                "id": "1",
-                "email": "example@email.com",
-                "create_time": "2026-03-09",
-            }
-        }
+    model_config = ConfigDict(from_attributes=True)

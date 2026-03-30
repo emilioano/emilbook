@@ -3,14 +3,13 @@ from datetime import datetime, timedelta
 from typing import Optional
 import os
 
-from config import ALGORITHM
-
 from dotenv import load_dotenv
 load_dotenv()
 
 # Remember a remember-me functionality for extended expiration time
 
 SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None, ACCESS_TOKEN_EXPIRE: int = 1) -> str:
     # Create JWT-token. 

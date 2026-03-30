@@ -1,0 +1,8 @@
+.users-container {
+    background-color:#312929;
+    opacity: 0.7;
+    color: white;
+    border-radius: 15px;
+    width: 30%;
+    align-items: left;
+}

@@ -1,19 +1,23 @@
 from fastapi import FastAPI, Depends, Request
-# from routes.posts import router
-# from routes.posts_mockdb import mockdb_router
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 
 from db.db import init_db, get_db
 from routes.auth import router as auth_router
-from routes.user import router as user_router
-from routes.post import router as post_router
+from routes.users import router as user_router
+from routes.posts import router as post_router
+from routes.comments import router as comments_router
+from routes.reactions import router as reaction_router
 
 import time
+import os
 
 from fastapi.middleware.cors import CORSMiddleware
 
+from dotenv import load_dotenv
+load_dotenv()
 
+ALLOW_ORIGINS = os.getenv("ALLOW_ORIGINS")
 
 app = FastAPI (
     title='emilbook',
@@ -25,19 +29,23 @@ app = FastAPI (
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[ALLOW_ORIGINS],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# app.include_router(router)
-# app.include_router(mockdb_router)
-# app.include_router(auth_router)
+@app.on_event("startup")
+async def startup_event():
+    # Creating db tables if not already existing
+    init_db()
+
 
 app.include_router(auth_router)
 app.include_router(user_router)
 app.include_router(post_router)
+app.include_router(comments_router)
+app.include_router(reaction_router)
 
 
 @app.get('/')
@@ -79,4 +87,5 @@ async def add_process_time_header(request: Request, call_next):
 
 if __name__ == '__main__':
     import uvicorn
-    uvicorn.run('app:app', host='0.0.0.0', port=8000, reload=True)
+    uvicorn.run('app:app', host='0.0.0.0', port=37640, reload=True)
+    # IMPORTANT! DISABLE RELOAD FOR PRODUCTION
