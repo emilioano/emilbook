@@ -8,7 +8,7 @@ import { useAuth } from "../context/AuthContext";
 import { deletePost } from "../services/api";
 import EditPost from "./EditPost";
 
-import "./Postcard.css";
+import "./PostCard.css";
 
 interface Props {
   post: Post;
