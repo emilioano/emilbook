@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Users } from "../types/users";
+import { User } from "../types/users";
 import { getAllUsers } from "../services/api";
 
 import './UserList.css'
 
 export default function UserList() {
-  const [users, setUsers] = useState<Users[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

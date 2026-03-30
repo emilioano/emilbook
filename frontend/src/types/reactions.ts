@@ -1,3 +1,6 @@
+
+import type { User } from './users';
+
 export interface Reaction {
     id: number;
     user: User;

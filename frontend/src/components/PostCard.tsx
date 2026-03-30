@@ -73,7 +73,6 @@ export default function PostCard({ post, onEvent }: Props) {
           <CreateComment
             postId={post.id}
             onCommentCreated={() => setShowCommentForm(false)}
-            onCancel={() => setShowCommentForm(false)}
             onEvent={onEvent}
           />
         )}

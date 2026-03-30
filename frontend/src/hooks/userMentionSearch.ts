@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { RefObject } from "react";
-import type { Users } from "../types/users";
+import type { User } from "../types/users";
 import { useDebouncedValue } from "./useDebounce";
 import { searchUsers } from "../services/api";
 
@@ -16,9 +16,9 @@ function getActiveMention(text: string, cursorPos: number) {
 export function userMentionSearch(
   value: string,
   setValue: (v: string) => void,
-  inputRef: RefObject<HTMLInputElement | HTMLTextAreaElement>
+  inputRef: RefObject<HTMLTextAreaElement | HTMLInputElement | null>
 ) {
-  const [users, setUsers] = useState<Users[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [open, setOpen] = useState(false);
   const [highlight, setHighlight] = useState(0);
   const abortRef = useRef<AbortController | null>(null);
@@ -53,7 +53,7 @@ export function userMentionSearch(
     return () => controller.abort();
   }, [debouncedQuery, active]);
 
-  function applyUser(u: Users) {
+  function applyUser(u: User) {
     if (!active) return;
     const before = value.slice(0, active.startIndex);
     const after = value.slice(active.endIndex);

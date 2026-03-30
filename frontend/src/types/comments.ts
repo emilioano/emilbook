@@ -1,3 +1,6 @@
+import type { User } from './users';
+import type { Reaction } from './reactions';
+
 export interface Comment {
     id: number;
     post_id: number;

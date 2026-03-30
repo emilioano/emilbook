@@ -25,7 +25,7 @@ export default function UserArea({ onSuccess }: Props) {
     setError("");
     setSuccess("");
     try {
-      await updateUser(user_id, {
+      await updateUser(user_id!, {
         username,
         password: password || undefined,
         email: email || undefined,
@@ -43,7 +43,7 @@ export default function UserArea({ onSuccess }: Props) {
     setError("");
     setSuccess("");
     try {
-      await deleteUser(user_id);
+      await deleteUser(user_id!);
       setSuccess("User is deleted!");
       logout();
       navigate("/");

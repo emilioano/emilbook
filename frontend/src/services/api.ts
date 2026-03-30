@@ -1,10 +1,10 @@
 import { api } from "../config/axios";
-import type { Posts } from "../types/posts";
-import type { Users } from "../types/users";
+import type { Post } from '../types/posts';
+import type { User } from "../types/users";
 import type { Reaction } from "../types/reactions";
 import type { Comment } from "../types/comments";
 
-export async function getAllPosts(): Promise<Posts[]> {
+export async function getAllPosts(): Promise<Post[]> {
   const response = await api.get("/posts");
   return response.data;
 }
@@ -14,14 +14,14 @@ export async function searchPosts(query: string): Promise<Post[]> {
   return response.data;
 }
 
-export async function getAllUsers(): Promise<Users[]> {
+export async function getAllUsers(): Promise<User[]> {
   const response = await api.get("/users");
   return response.data;
 }
 export async function searchUsers(
   q: string,
   signal?: AbortSignal
-): Promise<Users[]> {
+): Promise<User[]> {
   const params = new URLSearchParams({ search_phrase: q });
   const res = await api.get(`/users/search?${params.toString()}`, { signal });
   return res.data ?? [];

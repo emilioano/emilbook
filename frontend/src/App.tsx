@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/header.tsx";
+import Header from "./components/Header.tsx";
 import LoginModule from "./pages/LoginModule.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import UserArea from "./pages/UserArea.tsx";
@@ -22,7 +22,10 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/search" element={<SearchPage />} />
+          <Route
+            path="/search"
+            element={<SearchPage onEvent={() => window.location.reload()} />}
+          />
         </Routes>
       </BrowserRouter>
     </>

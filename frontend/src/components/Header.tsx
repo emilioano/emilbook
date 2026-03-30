@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { PostSearchModule } from "./PostsSearchModule";
 import "./Header.css";
 
 export default function Header() {

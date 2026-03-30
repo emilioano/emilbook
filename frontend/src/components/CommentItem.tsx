@@ -86,7 +86,6 @@ export default function CommentItem({
             postId={comment.post_id}
             parentCommentId={comment.id}
             onCommentCreated={() => setShowReplyForm(false)}
-            onCancel={() => setShowReplyForm(false)}
             onEvent={onEvent}
           />
         )}

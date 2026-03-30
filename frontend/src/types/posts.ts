@@ -1,3 +1,7 @@
+import type { User } from './users';
+import type { Reaction } from './reactions';
+import type { Comment } from './comments';
+
 export interface Post {
     id: number;
     post: string;

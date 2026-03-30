@@ -13,8 +13,8 @@ export default function CreatePost({ onPostCreated }: Props) {
   const [text, setText] = useState(() => {
     return localStorage.getItem("draft_post") ?? "";
   });
-  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState("");
   const ref = useRef<HTMLTextAreaElement>(null);
   const { users, open, highlight, onKeyDown, applyUser } = userMentionSearch(
     text,
@@ -24,7 +24,7 @@ export default function CreatePost({ onPostCreated }: Props) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setErrorMsg("");
     try {
       await createPost({ post: text });
       localStorage.removeItem("draft_post");
@@ -35,7 +35,7 @@ export default function CreatePost({ onPostCreated }: Props) {
         localStorage.setItem("draft_post", text);
         navigate("/login");
       } else {
-        setError("Failed to create post");
+        setErrorMsg("Failed to create post!");
       }
     }
   };
@@ -43,6 +43,7 @@ export default function CreatePost({ onPostCreated }: Props) {
   return (
     <form className="create-post-form" onSubmit={handleSubmit}>
       <div style={{ position: "relative" }}>
+        {errorMsg && <p className="error-message">{errorMsg}</p>}
         <textarea
           className="create-post-textarea"
           ref={ref}
