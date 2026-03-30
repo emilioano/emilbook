@@ -3,8 +3,10 @@ annotated-types==0.7.0
 anyio==4.12.1
 autopep8==2.3.2
 bcrypt==5.0.0
+cffi==2.0.0
 click==8.3.1
 colorama==0.4.6
+cryptography==46.0.5
 dnspython==2.8.0
 dotenv-python==0.0.1
 email-validator==2.3.0
@@ -15,11 +17,12 @@ idna==3.11
 inflect==7.5.0
 more-itertools==10.8.0
 pycodestyle==2.14.0
+pycparser==3.0
 pydantic==2.12.5
 pydantic_core==2.41.5
+PyJWT==2.12.1
 PyMySQL==1.1.2
 python-dotenv==1.2.2
-sqlacodegen==4.0.3
 SQLAlchemy==2.0.48
 starlette==0.52.1
 typeguard==4.5.1
