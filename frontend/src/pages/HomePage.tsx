@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CreatePost from "../components/CreatePost";
-import { PostViewerModule } from "../components/PostsViewerModule";
+import { PostViewerModule } from "../components/PostViewerModule";
 
 export default function HomePage() {
     const [refreshKey, setRefreshKey] = useState(0);
