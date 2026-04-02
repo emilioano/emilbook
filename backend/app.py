@@ -17,7 +17,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 load_dotenv()
 
-ALLOW_ORIGINS = os.getenv("ALLOW_ORIGINS")
+ALLOW_ORIGINS = os.getenv("ALLOW_ORIGINS", "").split(",")
 
 app = FastAPI (
     title='emilbook',
@@ -29,7 +29,7 @@ app = FastAPI (
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[ALLOW_ORIGINS],
+    allow_origins=ALLOW_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

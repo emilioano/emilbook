@@ -56,56 +56,59 @@ export default function LoginModule({ onSuccess }: Props) {
   };
 
   return (
-    <div className="login-wrapper" onClick={() => navigate("/")}>
-      <div className="login-container" onClick={(e) => e.stopPropagation()}>
-        <h2>{isRegistering ? "Create account" : "Login to continue!"}</h2>
-        <form onSubmit={isRegistering ? handleRegister : handleLogin}>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          {isRegistering && (
-            <>
-              <label htmlFor="email">Email (optional):</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+    <div className= "login-wrapper" onClick = {() => navigate("/")
+}>
+  <div className="login-container" onClick = {(e) => e.stopPropagation()}>
+    <h2>{ isRegistering? "Create account": "Login to continue!" } </h2>
+    < form onSubmit = { isRegistering? handleRegister: handleLogin } >
+      <label htmlFor="username" > Username: </label>
+        < input
+type = "text"
+id = "username"
+value = { username }
+onChange = {(e) => setUsername(e.target.value)}
+required
+  />
+  { isRegistering && (
+    <>
+    <label htmlFor="email" > Email(optional): </label>
+      < input
+type = "email"
+id = "email"
+value = { email }
+onChange = {(e) => setEmail(e.target.value)}
               />
-            </>
+  </>
           )}
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          {success && <p className="success-message">{success}</p>}
-          {error && <p className="error-message">{error}</p>}
-          <button type="submit" className="submit-button">
-            {isRegistering ? "Register" : "Login!"}
-          </button>
-        </form>
-        <button
-          className="toggle-button"
-          onClick={() => {
-            setIsRegistering((prev) => !prev);
-            setError("");
-            setSuccess("");
-          }}
+<label htmlFor="password" > Password: </label>
+  < input
+type = "password"
+id = "password"
+value = { password }
+onChange = {(e) => setPassword(e.target.value)}
+required
+  />
+  { success && <p className="success-message" > { success } </p>}
+{ error && <p className="error-message" > { error } </p> }
+<button type="submit" className = "submit-button" >
+  { isRegistering? "Register": "Login!" }
+  </button>
+  </form>
+  < button
+className = "toggle-button"
+onClick = {() => {
+  setIsRegistering((prev) => !prev);
+  setError("");
+  setSuccess("");
+}}
         >
-          {isRegistering
-            ? "Already have an account? Login"
-            : "No account? Register"}
-        </button>
-      </div>
-    </div>
+{
+  isRegistering
+  ? "Already have an account? Login"
+    : "No account? Register"
+}
+  </button>
+  </div>
+  </div>
   );
 }
