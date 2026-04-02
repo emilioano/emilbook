@@ -43,7 +43,7 @@ export default function Header() {
                 {user.username}
               </Link>
             </span>
-            <button onClick={logout} className="nav-button" className="user-button">
+            <button onClick={logout} className="user-button">
               Logout!
             </button>
           </>
