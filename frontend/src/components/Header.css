@@ -66,11 +66,22 @@
   min-width: 0;
 }
 
+.user-button {
+  background: rgb(7, 14, 10);
+  border-radius: 12px;
+  color: #85ad88;
+  font-weight: 500;
+  border: 1px solid #eeeeee;
+  font-size: 16px;
+  padding: 8px 12px;
+  min-width: 0;
+}
+
 input.search-field {
   flex: 1;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 400px) {
   .search-area {
       display: none;
   }

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { createComment } from "../services/api";
 import axios from "axios";
 
+import "./CreateComment.css"
+
 interface Props {
   postId: number;
   parentCommentId?: number;
@@ -58,7 +60,7 @@ export default function CreateComment({
       />
       {error && <p className="error-message">{error}</p>}
       <div className="comment-form-actions">
-        <button type="submit">Send</button>
+        <button type="submit" className="send-button">Send</button>
       </div>
     </form>
   );
