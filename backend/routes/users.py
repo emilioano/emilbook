@@ -127,7 +127,7 @@ async def delete_user(user_id: int, db: Session = Depends(get_db), current_user:
     db.commit()
 
 
-@router.put('/{user_id}', response_model=UserResponse)
+@router.patch('/{user_id}', response_model=UserResponse)
 async def update_user(user_id: int, update_user: UpdateUser, db: Session = Depends(get_db), current_user: CurrentUser = Depends(get_current_user)):
 
     user_detail = db.query(Users).filter(Users.id == user_id).first()
