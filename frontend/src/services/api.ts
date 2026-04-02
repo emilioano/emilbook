@@ -101,7 +101,7 @@ export async function updateUser(
   user_id: number,
   data: { username: string; email?: string; password?: string }
 ): Promise<void> {
-  const response = await api.put(`/users/${user_id}`, data);
+  const response = await api.patch(`/users/${user_id}`, data);
   return response.data;
 }
 
