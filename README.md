@@ -1,62 +1,99 @@
 # emilbook
-Emilbook is a guestbook/wall inspired by popular social networking apps.
-Backend is built with FastAPI and Python, while React is used for the frontend, it is a modern scalable application.
-It uses a MySQL database. 
 
+Emilbook is a guestbook/wall inspired by popular social networking apps. Read and write posts on a wall, react to posts, and manage your user account with full CRUD support.
 
-It's possible to read and write posts on a wall and use different reactions, user account can be created and CRUD operations are supported.
+**Live demo:** [emilbook.sjokvi.st](https://emilbook.sjokvi.st/)
+**API docs:** [api-emilbook.sjokvi.st/docs](https://api-emilbook.sjokvi.st/docs)
 
+## Tech Stack
 
+| Layer    | Technology        |
+|----------|-------------------|
+| Frontend | React             |
+| Backend  | FastAPI (Python)  |
+| Database | MySQL             |
 
-Visit a live version here: https://emilbook.sjokvi.st/
+## Prerequisites
 
-Backend docs: https://api-emilbook.sjokvi.st/docs
+- Python 3.10+
+- Node.js 18+ and npm
+- MySQL 8.0+
 
+## Getting Started
 
-Instructions:
+### 1. Database
+
+In `backend/docs/` there is a database model and SQL script for setting up the database.
+
+```bash
+# Create the database using the provided script
+mysql -u root < backend/docs/emilbook.sql
 ```
-# Database:
-# In backend/docs/ there is a database model and script available which can be used to create a fit for purpose database.
 
-# Example on how to create the db using the provided SQL script:
-mysql -u root < emilbook.sql
+Then, inside the MySQL shell, create a dedicated user:
 
-# Create a user for the db:
+```sql
 CREATE USER 'username'@'host' IDENTIFIED BY 'password';
-
-# Grant db authorization for the user:
-GRANT ALL PRIVILEGES ON emilbook.* TO 'user'@'host';
-
-
-# Backend:
-# Navigate to the backend folder.
-
-# Recommended to create a virtual environment
-python3 -m venv .venv
-
-# Activate venv. Note! .venv/Scripts/activate if Windows, .venv/bin/activate if Linux
-source .venv/bin/activate
-
-# Install the required libraries
-pip install -r requirements.txt
-
-# There is a .env_template file provided where you need to out your own parameters and save as .env
-
-# After this you can start the backend with:
-python3 app.py
-
-
-# Frontend
-# Navigate to the frontend folder.
-
-# Install the dependencies
-npm i
-
-# There is a .env_template file provided where you need to out your own parameters and save as .env
-
-# To start frontend in dev mode
-npm run dev
-
-
-
+GRANT ALL PRIVILEGES ON emilbook.* TO 'username'@'host';
 ```
+
+### 2. Backend
+
+```bash
+# Navigate to the backend folder
+cd backend
+
+# Create and activate a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate        # Linux/macOS
+# .venv\Scripts\activate         # Windows
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+Copy `.env_template` to `.env` and fill in your own parameters (database credentials, secret key, etc.).
+
+```bash
+cp .env_template .env
+# Edit .env with your values
+```
+
+Start the backend:
+
+```bash
+python3 app.py
+```
+
+### 3. Frontend
+
+```bash
+# Navigate to the frontend folder
+cd frontend
+
+# Install dependencies
+npm install
+```
+
+Copy `.env_template` to `.env` and configure it (API URL, etc.).
+
+```bash
+cp .env_template .env
+# Edit .env with your values
+```
+
+Run in development mode:
+
+```bash
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
