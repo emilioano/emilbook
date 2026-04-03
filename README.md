@@ -7,11 +7,11 @@ Emilbook is a guestbook/wall inspired by popular social networking apps. Read an
 
 ## Tech Stack
 
-| Layer    | Technology        |
-|----------|-------------------|
-| Frontend | React             |
-| Backend  | FastAPI (Python)  |
-| Database | MySQL             |
+| Layer    | Technology                                  |
+|----------|---------------------------------------------|
+| Frontend | React                                       |
+| Backend  | Python: FastAPI, SQLAlchemy, Pydantic, jwt  |
+| Database | MySQL                                       |
 
 ## Prerequisites
 
@@ -92,6 +92,126 @@ Build for production:
 
 ```bash
 npm run build
+```
+
+Endpoints:
+
+```bash
+authentication
+POST
+/auth/login
+Login
+
+POST
+/auth/logout
+Logout
+
+GET
+/auth/secret
+Get Secret
+
+GET
+/auth/me
+Get Me
+
+users
+GET
+/users/
+Get All Users
+
+POST
+/users/
+Create User
+
+GET
+/users/search
+Get Specific Users
+
+
+DELETE
+/users/{user_id}
+Delete User
+
+PATCH
+/users/{user_id}
+Update User
+
+posts
+POST
+/posts/
+Create Post
+
+GET
+/posts/
+View All Posts
+
+GET
+/posts/search
+View Specific Posts
+
+PUT
+/posts/{post_id}
+Edit Post
+
+DELETE
+/posts/{post_id}
+Delete Post
+
+comments
+POST
+/comments/
+Create Comment
+
+PUT
+/comments/{comment_id}
+Edit Comment
+
+DELETE
+/comments/{comment_id}
+Delete Comment
+
+reactions
+POST
+/reactions/
+Create Reaction
+
+PUT
+/reactions/{reaction_id}
+Edit Reaction
+
+DELETE
+/reactions/{reaction_id}
+Delete Reaction
+
+default
+GET
+/
+Root
+
+GET
+/health
+Health Check
+
+
+Schemas
+CommentsResponse
+CreateComment
+CreatePost
+CreateReaction
+CreateUser
+CurrentUser
+HTTPValidationError
+LoginRequest
+PostResponse
+ReactionType
+ReactionsResponse
+TokenResponse
+UpdateComment
+UpdatePost
+UpdateReaction
+UpdateUser
+UserResponse
+ValidationError
 ```
 
 ## License
